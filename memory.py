@@ -17,9 +17,10 @@ from freegames import path
 num_pairs = 32
 car = path('car.gif')
 tiles = list(range(num_pairs)) * 2
-state = {'mark': None}
-hide = [True] * 64
+hide = [True] * num_pairs*2
 pair_missing = num_pairs
+state = {'mark': None, 'taps': 0}
+symbols = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ') + ['!', '?', '#', '$', '%', '&']
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -46,6 +47,7 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    state['taps'] += 1
     spot = index(x, y)
     mark = state['mark']
 
@@ -80,14 +82,18 @@ def draw():
         up()
         goto(x + 2, y)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(symbols[tiles[mark]], font=('Arial', 30, 'normal'))
 
+    up()
+    goto(-200, 205)
+    color('black')
+    write(f"Taps: {state['taps']}", font=('Arial', 12, 'normal'))
     update()
     ontimer(draw, 100)
 
 
 shuffle(tiles)
-setup(420, 420, 370, 0)
+setup(420, 460, 370, 0)
 addshape(car)
 hideturtle()
 tracer(False)
