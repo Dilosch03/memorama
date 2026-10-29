@@ -21,6 +21,7 @@ hide = [True] * num_pairs*2
 pair_missing = num_pairs
 state = {'mark': None, 'taps': 0}
 symbols = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ') + ['!', '?', '#', '$', '%', '&']
+offset = 25
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -80,9 +81,9 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + offset, y)
         color('black')
-        write(symbols[tiles[mark]], font=('Arial', 30, 'normal'))
+        write(symbols[tiles[mark]], align="center", font=('Arial', 30, 'normal'))
 
     up()
     goto(-200, 205)
