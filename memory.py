@@ -14,11 +14,12 @@ from turtle import *
 
 from freegames import path
 
+num_pairs = 32
 car = path('car.gif')
-tiles = list(range(32)) * 2
+tiles = list(range(num_pairs)) * 2
 state = {'mark': None}
 hide = [True] * 64
-
+pair_missing = num_pairs
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -53,6 +54,7 @@ def tap(x, y):
     else:
         hide[spot] = False
         hide[mark] = False
+        pair_missing -= 1
         state['mark'] = None
 
 
@@ -63,12 +65,15 @@ def draw():
     shape(car)
     stamp()
 
-    for count in range(64):
+    for count in range(2*num_pairs):
         if hide[count]:
             x, y = xy(count)
             square(x, y)
 
     mark = state['mark']
+
+    if (pair_missing <= 0):
+        return
 
     if mark is not None and hide[mark]:
         x, y = xy(mark)
