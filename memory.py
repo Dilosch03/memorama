@@ -18,6 +18,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None, 'taps': 0}
 hide = [True] * 64
+symbols = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ') + ['!', '?', '#', '$', '%', '&']
 
 
 def square(x, y):
@@ -76,7 +77,7 @@ def draw():
         up()
         goto(x + 2, y)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(symbols[tiles[mark]], font=('Arial', 30, 'normal'))
 
     up()
     goto(-200, 205)
