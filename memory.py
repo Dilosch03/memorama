@@ -48,6 +48,7 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    global pair_missing
     state['taps'] += 1
     spot = index(x, y)
     mark = state['mark']
